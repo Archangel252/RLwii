@@ -14,7 +14,7 @@ pip install -r requirements.txt
 python smoke_test.py   # sanity check, doesn't need Dolphin running
 ```
 
-## `dolphin-memory-engine` on macOS -- SOLVED
+## `dolphin-memory-engine` on macOS
 
 The package publishes a working macOS arm64 wheel, but by default it can't
 hook into Dolphin: `dme.hook()` leaves `is_hooked()` False and
@@ -25,7 +25,7 @@ entitlement before another process can attach to it via `task_for_pid`
 this otherwise, and the Dolphin.app build/install doesn't include that
 entitlement.
 
-Fix -- re-sign the installed app with that entitlement added:
+Re-sign the installed app with that entitlement added:
 
 1. **Grant your terminal app "App Management" permission**: System Settings
    -> Privacy & Security -> App Management -> enable whatever terminal app
