@@ -1,0 +1,5 @@
+dolphin-memory-engine
+gymnasium
+numpy
+
+# stable-baselines3  # add later once the env works
