@@ -26,7 +26,38 @@ ADDRESSES: dict[str, int] = {
                                          # not the in-level HUD.
     "enemy_tank_x_pos": 0x91CFDD84,     # float, enemy arena slot 0
     "enemy_tank_y_pos": 0x91CFDD8C,     # float, enemy arena slot 0
+    "level_index": 0x91D27FFF,          # byte, 0-based (level 1 reads 0)
+    "enemies_remaining": 0x91CFAB8B,    # byte; writing 0 completes the level
+    "frame_counter": 0x8043BFD4,        # word, +1/frame, survives level loads
 }
+
+# Verified at exactly +1 per frame, 59.9/s, no irregular steps. Use it to pace
+# steps -- wall-clock sleeps drift once emulation speed is uncapped.
+# Equivalent global mirrors: 0x8043C064, 0x804D1CFC, 0x804D1D54.
+#
+# 0x80B19D4C looked like a per-level counter (reset on level load) but is NOT
+# one: it ticks ~25/s, not 60, and was seen going backwards. Track episode
+# length by counting steps in Python instead.
+
+# Level jumping, no save states needed. Writing "level_index" alone does
+# nothing -- geometry only loads on a level transition -- but zeroing
+# "enemies_remaining" triggers one, and the transition increments the index
+# and loads whatever it lands on. So:
+#
+#     write level_index = target - 2
+#     write enemies_remaining = 0      -> transition loads `target`
+#
+# Verified on levels never visited or saved (7, 12, 15, 20, 25, 30). Confirm
+# with "block_count" rather than re-reading level_index, which is racy right
+# after the write. Jump from a settled in-level state; chaining jumps
+# back-to-back lands mid-transition and silently fails.
+#
+# Mirrors that are NOT authoritative: 0x91D27EF3 / 0x91D28537 (level, 1-based)
+# and 0x91D27EFF (enemy count). Writing those alone advances by one level
+# instead of jumping, or does nothing.
+#
+# Note the enemy arena's own active flags are effects, not causes -- zeroing
+# them removes tanks from a scan but never completes the level.
 
 # Bullets: fixed-stride arena, not a fixed address.
 BULLET_ARENA_BASE = 0x91D0F7AC              # pos_a of slot 0
@@ -59,9 +90,13 @@ BLOCK_OFF_Y = -0x34                         # float
 BLOCK_OFF_DESTRUCTIBLE = 0x70               # word, 0 = destructible (cork),
                                              # 1 = solid
 BLOCK_GRID_STEP = 35.0
-BLOCK_OFF_HEALTH = 0x60                     # word, 3498 intact -> -999 dead
+# Not health -- a per-block frame counter ticking +1/frame since the block
+# spawned, set to -999 on destruction. (Every block's +0x60 showed up in the
+# frame-counter search, spaced one BLOCK_ARENA_STRIDE apart.) Its value is
+# just time-since-level-load, which is why it differs on every load.
+BLOCK_OFF_AGE_FRAMES = 0x60                 # word; -999 once destroyed
+BLOCK_AGE_DEAD = -999
 BLOCK_OFF_DESTROYED = 0x108                 # word, 0 intact -> 0x01000000
-BLOCK_HEALTH_INTACT = 3498
 
 # Struct actually starts at -0x40; its first word is a C++ vtable pointer.
 # Ruled OUT as a type discriminator -- holes, cork and solid walls all share
