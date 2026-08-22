@@ -81,6 +81,13 @@ SLOT_FILE = os.path.expanduser(
     "~/Library/Application Support/Dolphin/StateSaves/RHAE01.s01")
 SLOT_BUTTON = "X"                                    # bound to Load State Slot 1
 CLEAN_STATE = os.path.join(PROJECT_ROOT, "Games", "Levels", "level1.sav")
+LEVELS_DIR = os.path.join(PROJECT_ROOT, "Games", "Levels")
+
+
+def level_state(level):
+    """Path to a level's save state, or None if we don't have one."""
+    path = os.path.join(LEVELS_DIR, f"level{level}.sav")
+    return path if os.path.exists(path) else None
 
 
 def focus():
@@ -95,10 +102,23 @@ def load_state(controller, state_path=CLEAN_STATE):
     Dolphin re-reads the slot file from disk on every load, so any state file
     can be used by copying it over the slot first.
     """
+    import dolphin_memory_engine as _dme
+    from src import memory_map as _m
+
     shutil.copyfile(state_path, SLOT_FILE)
     focus()
-    time.sleep(0.4)
+    time.sleep(0.15)
+
+    # A state load rewinds the global frame counter, which is a far more
+    # reliable "it landed" signal than sleeping a fixed guess.
+    before = _dme.read_word(_m.ADDRESSES["frame_counter"])
     controller.press(SLOT_BUTTON)
-    time.sleep(0.2)
+    time.sleep(0.12)
     controller.release(SLOT_BUTTON)
-    time.sleep(1.5)
+
+    deadline = time.time() + 8.0
+    while time.time() < deadline:
+        if _dme.read_word(_m.ADDRESSES["frame_counter"]) < before:
+            return True
+        time.sleep(0.02)
+    return False

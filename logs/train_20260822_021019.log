@@ -1,0 +1,6 @@
+=== attempt 0 @ 02:10:19 ===
+Dolphin ready
+Using cpu device
+Wrapping the env in a DummyVecEnv.
+at 0 steps, 50000 remaining
+Logging to /Users/archangel/Documents/Projects/wii-play-tank-ai/logs/PPO_1

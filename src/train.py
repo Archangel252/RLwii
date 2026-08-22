@@ -20,11 +20,12 @@ from src.encoders.grid import GridEncoder
 from src.env import TanksEnv
 from src.levels import AdaptiveSampler
 from src.policy import POLICY_KWARGS
-from src.reward_funcs.shaped import ShapedReward
+from src.reward_funcs.combat import CombatReward
 
 START_STATE = os.path.join(dolphin.PROJECT_ROOT, "Games", "Levels", "level1.sav")
 MODEL_DIR = os.path.join(dolphin.PROJECT_ROOT, "models")
 LOG_DIR = os.path.join(dolphin.PROJECT_ROOT, "logs")
+LATEST_PATH = os.path.join(MODEL_DIR, "latest")
 
 TRAIN_LEVELS = [2, 3, 4]
 EVAL_LEVELS = [5, 6]        # held out, to show generalisation rather than memorisation
@@ -133,19 +134,32 @@ def main():
 
     controller = PipeController(dolphin.PIPE_PATH)
     sampler = AdaptiveSampler(TRAIN_LEVELS)
+
+    def recover(env):
+        """Relaunch Dolphin and reconnect. The pipe FD dies with the old
+        process, so the controller has to be reopened too."""
+        controller.close()
+        dolphin.launch(state=START_STATE, headless=True, uncapped=True)
+        controller.open()
+
     env = TanksEnv(
         dme=dme,
         controller=controller,
         encoder=GridEncoder(),
-        reward_fn=ShapedReward(),
+        reward_fn=CombatReward(),
         levels=sampler,
+        on_stuck=recover,
     )
     # Monitor records episode return/length, which is what the reward curve
     # is read from.
     monitored = Monitor(env, os.path.join(LOG_DIR, "monitor.csv"))
 
-    if args.resume:
-        model = PPO.load(args.resume, env=monitored, tensorboard_log=LOG_DIR)
+    resume_from = args.resume
+    if not resume_from and os.path.exists(LATEST_PATH + ".zip"):
+        resume_from = LATEST_PATH
+    if resume_from:
+        print(f"resuming from {resume_from}", flush=True)
+        model = PPO.load(resume_from, env=monitored, tensorboard_log=LOG_DIR)
     else:
         model = PPO(
             "CnnPolicy",
@@ -166,10 +180,21 @@ def main():
                      MODEL_DIR, sampler=sampler, log_dir=LOG_DIR),
     ]
 
+    # `--steps` is a cumulative target, so a resumed run continues counting
+    # rather than starting over.
+    remaining = max(0, args.steps - model.num_timesteps)
+    print(f"at {model.num_timesteps} steps, {remaining} remaining", flush=True)
+
     try:
-        model.learn(total_timesteps=args.steps, callback=callbacks)
+        if remaining:
+            model.learn(total_timesteps=remaining, callback=callbacks,
+                        reset_num_timesteps=False)
         model.save(os.path.join(MODEL_DIR, "final"))
     finally:
+        # Save before anything else so a crash never loses progress; the
+        # wrapper resumes from here.
+        model.save(LATEST_PATH)
+        print(f"saved {LATEST_PATH} at {model.num_timesteps} steps", flush=True)
         env.close()
 
 

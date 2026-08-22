@@ -1,153 +1,951 @@
 [
   {
-    "timesteps": 30,
-    "mean_return": -5.0,
+    "timesteps": 2000,
+    "mean_return": -4.950166327385566,
     "levels": {
       "5": {
-        "episodes": 1,
-        "cleared": 0,
-        "clear_rate": 0.0,
-        "mean_return": -5.0
-      },
-      "6": {
-        "episodes": 1,
-        "cleared": 0,
-        "clear_rate": 0.0,
-        "mean_return": -5.0
-      }
-    },
-    "train_sampler": {
-      "2": {
-        "episodes": 7,
-        "cleared": 0,
-        "clear_rate": 0.0,
-        "weight": 0.333
-      },
-      "3": {
-        "episodes": 0,
-        "cleared": 0,
-        "clear_rate": 0.0,
-        "weight": 0.333
-      },
-      "4": {
         "episodes": 2,
         "cleared": 0,
         "clear_rate": 0.0,
-        "weight": 0.333
-      }
-    }
-  },
-  {
-    "timesteps": 60,
-    "mean_return": -5.0,
-    "levels": {
-      "5": {
-        "episodes": 1,
-        "cleared": 0,
-        "clear_rate": 0.0,
-        "mean_return": -5.0
+        "mean_return": -4.991365575107686
       },
       "6": {
-        "episodes": 1,
+        "episodes": 2,
         "cleared": 0,
         "clear_rate": 0.0,
-        "mean_return": -5.0
+        "mean_return": -4.908967079663446
       }
     },
     "train_sampler": {
       "2": {
-        "episodes": 10,
-        "cleared": 0,
-        "clear_rate": 0.0,
-        "weight": 0.333
+        "episodes": 89,
+        "cleared": 17,
+        "clear_rate": 0.191,
+        "weight": 0.299
       },
       "3": {
-        "episodes": 3,
-        "cleared": 0,
-        "clear_rate": 0.0,
-        "weight": 0.333
+        "episodes": 95,
+        "cleared": 6,
+        "clear_rate": 0.063,
+        "weight": 0.342
       },
       "4": {
-        "episodes": 5,
-        "cleared": 0,
-        "clear_rate": 0.0,
-        "weight": 0.333
+        "episodes": 101,
+        "cleared": 1,
+        "clear_rate": 0.01,
+        "weight": 0.359
       }
     }
   },
   {
-    "timesteps": 90,
-    "mean_return": -5.0,
+    "timesteps": 4000,
+    "mean_return": -0.4365000000001096,
     "levels": {
       "5": {
-        "episodes": 1,
+        "episodes": 2,
         "cleared": 0,
         "clear_rate": 0.0,
-        "mean_return": -5.0
+        "mean_return": 3.999999999999781
       },
       "6": {
-        "episodes": 1,
+        "episodes": 2,
         "cleared": 0,
         "clear_rate": 0.0,
-        "mean_return": -5.0
+        "mean_return": -4.873
       }
     },
     "train_sampler": {
       "2": {
-        "episodes": 14,
-        "cleared": 0,
-        "clear_rate": 0.0,
-        "weight": 0.333
+        "episodes": 167,
+        "cleared": 28,
+        "clear_rate": 0.168,
+        "weight": 0.304
       },
       "3": {
-        "episodes": 4,
-        "cleared": 0,
-        "clear_rate": 0.0,
-        "weight": 0.333
+        "episodes": 184,
+        "cleared": 11,
+        "clear_rate": 0.06,
+        "weight": 0.339
       },
       "4": {
-        "episodes": 10,
-        "cleared": 0,
-        "clear_rate": 0.0,
-        "weight": 0.333
+        "episodes": 204,
+        "cleared": 1,
+        "clear_rate": 0.005,
+        "weight": 0.357
       }
     }
   },
   {
-    "timesteps": 120,
-    "mean_return": -4.5,
+    "timesteps": 6000,
+    "mean_return": -0.4581384933430521,
     "levels": {
       "5": {
-        "episodes": 1,
+        "episodes": 2,
         "cleared": 0,
         "clear_rate": 0.0,
-        "mean_return": -4.0
+        "mean_return": 3.999999999999781
       },
       "6": {
-        "episodes": 1,
+        "episodes": 2,
         "cleared": 0,
         "clear_rate": 0.0,
-        "mean_return": -5.0
+        "mean_return": -4.916276986685885
       }
     },
     "train_sampler": {
       "2": {
-        "episodes": 16,
-        "cleared": 0,
-        "clear_rate": 0.0,
-        "weight": 0.333
+        "episodes": 240,
+        "cleared": 42,
+        "clear_rate": 0.175,
+        "weight": 0.301
       },
       "3": {
-        "episodes": 7,
-        "cleared": 0,
-        "clear_rate": 0.0,
-        "weight": 0.333
+        "episodes": 282,
+        "cleared": 14,
+        "clear_rate": 0.05,
+        "weight": 0.342
       },
       "4": {
-        "episodes": 15,
+        "episodes": 315,
+        "cleared": 1,
+        "clear_rate": 0.003,
+        "weight": 0.357
+      }
+    }
+  },
+  {
+    "timesteps": 8000,
+    "mean_return": -4.983463226127251,
+    "levels": {
+      "5": {
+        "episodes": 2,
         "cleared": 0,
         "clear_rate": 0.0,
-        "weight": 0.333
+        "mean_return": -4.998
+      },
+      "6": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.968926452254501
+      }
+    },
+    "train_sampler": {
+      "2": {
+        "episodes": 330,
+        "cleared": 56,
+        "clear_rate": 0.17,
+        "weight": 0.304
+      },
+      "3": {
+        "episodes": 374,
+        "cleared": 25,
+        "clear_rate": 0.067,
+        "weight": 0.338
+      },
+      "4": {
+        "episodes": 421,
+        "cleared": 2,
+        "clear_rate": 0.005,
+        "weight": 0.358
+      }
+    }
+  },
+  {
+    "timesteps": 10000,
+    "mean_return": -4.694942504341958,
+    "levels": {
+      "5": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.975375723855382
+      },
+      "6": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.414509284828533
+      }
+    },
+    "train_sampler": {
+      "2": {
+        "episodes": 397,
+        "cleared": 72,
+        "clear_rate": 0.181,
+        "weight": 0.301
+      },
+      "3": {
+        "episodes": 459,
+        "cleared": 31,
+        "clear_rate": 0.068,
+        "weight": 0.339
+      },
+      "4": {
+        "episodes": 524,
+        "cleared": 2,
+        "clear_rate": 0.004,
+        "weight": 0.36
+      }
+    }
+  },
+  {
+    "timesteps": 12000,
+    "mean_return": -4.956400791458634,
+    "levels": {
+      "5": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.961927124791
+      },
+      "6": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.950874458126268
+      }
+    },
+    "train_sampler": {
+      "2": {
+        "episodes": 467,
+        "cleared": 82,
+        "clear_rate": 0.176,
+        "weight": 0.303
+      },
+      "3": {
+        "episodes": 550,
+        "cleared": 40,
+        "clear_rate": 0.073,
+        "weight": 0.337
+      },
+      "4": {
+        "episodes": 615,
+        "cleared": 2,
+        "clear_rate": 0.003,
+        "weight": 0.36
+      }
+    }
+  },
+  {
+    "timesteps": 14000,
+    "mean_return": -4.984118671687585,
+    "levels": {
+      "5": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.996
+      },
+      "6": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.97223734337517
+      }
+    },
+    "train_sampler": {
+      "2": {
+        "episodes": 545,
+        "cleared": 92,
+        "clear_rate": 0.169,
+        "weight": 0.305
+      },
+      "3": {
+        "episodes": 634,
+        "cleared": 50,
+        "clear_rate": 0.079,
+        "weight": 0.335
+      },
+      "4": {
+        "episodes": 700,
+        "cleared": 2,
+        "clear_rate": 0.003,
+        "weight": 0.36
+      }
+    }
+  },
+  {
+    "timesteps": 16000,
+    "mean_return": -4.967686747624317,
+    "levels": {
+      "5": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.969357088896798
+      },
+      "6": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.9660164063518355
+      }
+    },
+    "train_sampler": {
+      "2": {
+        "episodes": 626,
+        "cleared": 102,
+        "clear_rate": 0.163,
+        "weight": 0.309
+      },
+      "3": {
+        "episodes": 724,
+        "cleared": 72,
+        "clear_rate": 0.099,
+        "weight": 0.33
+      },
+      "4": {
+        "episodes": 777,
+        "cleared": 2,
+        "clear_rate": 0.003,
+        "weight": 0.362
+      }
+    }
+  },
+  {
+    "timesteps": 18000,
+    "mean_return": -4.961360430619735,
+    "levels": {
+      "5": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.944834197327393
+      },
+      "6": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.977886663912079
+      }
+    },
+    "train_sampler": {
+      "2": {
+        "episodes": 710,
+        "cleared": 125,
+        "clear_rate": 0.176,
+        "weight": 0.309
+      },
+      "3": {
+        "episodes": 818,
+        "cleared": 107,
+        "clear_rate": 0.131,
+        "weight": 0.324
+      },
+      "4": {
+        "episodes": 893,
+        "cleared": 2,
+        "clear_rate": 0.002,
+        "weight": 0.367
+      }
+    }
+  },
+  {
+    "timesteps": 20000,
+    "mean_return": -4.9538395502562285,
+    "levels": {
+      "5": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.979393116320399
+      },
+      "6": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.928285984192058
+      }
+    },
+    "train_sampler": {
+      "2": {
+        "episodes": 801,
+        "cleared": 140,
+        "clear_rate": 0.175,
+        "weight": 0.311
+      },
+      "3": {
+        "episodes": 890,
+        "cleared": 134,
+        "clear_rate": 0.151,
+        "weight": 0.319
+      },
+      "4": {
+        "episodes": 998,
+        "cleared": 2,
+        "clear_rate": 0.002,
+        "weight": 0.369
+      }
+    }
+  },
+  {
+    "timesteps": 22000,
+    "mean_return": -4.972598813276442,
+    "levels": {
+      "5": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.9876796906616185
+      },
+      "6": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.957517935891265
+      }
+    },
+    "train_sampler": {
+      "2": {
+        "episodes": 897,
+        "cleared": 170,
+        "clear_rate": 0.19,
+        "weight": 0.312
+      },
+      "3": {
+        "episodes": 990,
+        "cleared": 186,
+        "clear_rate": 0.188,
+        "weight": 0.312
+      },
+      "4": {
+        "episodes": 1109,
+        "cleared": 2,
+        "clear_rate": 0.002,
+        "weight": 0.376
+      }
+    }
+  },
+  {
+    "timesteps": 24000,
+    "mean_return": -4.955397630477383,
+    "levels": {
+      "5": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.959592099506072
+      },
+      "6": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.951203161448694
+      }
+    },
+    "train_sampler": {
+      "2": {
+        "episodes": 991,
+        "cleared": 206,
+        "clear_rate": 0.208,
+        "weight": 0.311
+      },
+      "3": {
+        "episodes": 1097,
+        "cleared": 245,
+        "clear_rate": 0.223,
+        "weight": 0.306
+      },
+      "4": {
+        "episodes": 1231,
+        "cleared": 2,
+        "clear_rate": 0.002,
+        "weight": 0.383
+      }
+    }
+  },
+  {
+    "timesteps": 26000,
+    "mean_return": -4.970945710428206,
+    "levels": {
+      "5": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.983891420856413
+      },
+      "6": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.958
+      }
+    },
+    "train_sampler": {
+      "2": {
+        "episodes": 1093,
+        "cleared": 236,
+        "clear_rate": 0.216,
+        "weight": 0.312
+      },
+      "3": {
+        "episodes": 1194,
+        "cleared": 293,
+        "clear_rate": 0.245,
+        "weight": 0.301
+      },
+      "4": {
+        "episodes": 1345,
+        "cleared": 2,
+        "clear_rate": 0.001,
+        "weight": 0.387
+      }
+    }
+  },
+  {
+    "timesteps": 28000,
+    "mean_return": -4.936421198767462,
+    "levels": {
+      "5": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.980146977576265
+      },
+      "6": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.892695419958659
+      }
+    },
+    "train_sampler": {
+      "2": {
+        "episodes": 1170,
+        "cleared": 247,
+        "clear_rate": 0.211,
+        "weight": 0.314
+      },
+      "3": {
+        "episodes": 1292,
+        "cleared": 334,
+        "clear_rate": 0.259,
+        "weight": 0.297
+      },
+      "4": {
+        "episodes": 1441,
+        "cleared": 2,
+        "clear_rate": 0.001,
+        "weight": 0.388
+      }
+    }
+  },
+  {
+    "timesteps": 30000,
+    "mean_return": -4.896574557452838,
+    "levels": {
+      "5": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.9791578021973155
+      },
+      "6": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.81399131270836
+      }
+    },
+    "train_sampler": {
+      "2": {
+        "episodes": 1222,
+        "cleared": 254,
+        "clear_rate": 0.208,
+        "weight": 0.316
+      },
+      "3": {
+        "episodes": 1324,
+        "cleared": 349,
+        "clear_rate": 0.264,
+        "weight": 0.296
+      },
+      "4": {
+        "episodes": 1500,
+        "cleared": 2,
+        "clear_rate": 0.001,
+        "weight": 0.389
+      }
+    }
+  },
+  {
+    "timesteps": 32000,
+    "mean_return": -4.94117193608527,
+    "levels": {
+      "5": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.976534936072243
+      },
+      "6": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.905808936098298
+      }
+    },
+    "train_sampler": {
+      "2": {
+        "episodes": 1242,
+        "cleared": 257,
+        "clear_rate": 0.207,
+        "weight": 0.317
+      },
+      "3": {
+        "episodes": 1355,
+        "cleared": 368,
+        "clear_rate": 0.272,
+        "weight": 0.294
+      },
+      "4": {
+        "episodes": 1533,
+        "cleared": 2,
+        "clear_rate": 0.001,
+        "weight": 0.39
+      }
+    }
+  },
+  {
+    "timesteps": 34000,
+    "mean_return": -4.914297397625971,
+    "levels": {
+      "5": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.981826376116767
+      },
+      "6": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.846768419135175
+      }
+    },
+    "train_sampler": {
+      "2": {
+        "episodes": 1253,
+        "cleared": 257,
+        "clear_rate": 0.205,
+        "weight": 0.317
+      },
+      "3": {
+        "episodes": 1362,
+        "cleared": 373,
+        "clear_rate": 0.274,
+        "weight": 0.293
+      },
+      "4": {
+        "episodes": 1547,
+        "cleared": 2,
+        "clear_rate": 0.001,
+        "weight": 0.39
+      }
+    }
+  },
+  {
+    "timesteps": 36000,
+    "mean_return": -4.6718828042350005,
+    "levels": {
+      "5": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.997
+      },
+      "6": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.34676560847
+      }
+    },
+    "train_sampler": {
+      "2": {
+        "episodes": 1269,
+        "cleared": 261,
+        "clear_rate": 0.206,
+        "weight": 0.318
+      },
+      "3": {
+        "episodes": 1386,
+        "cleared": 384,
+        "clear_rate": 0.277,
+        "weight": 0.292
+      },
+      "4": {
+        "episodes": 1574,
+        "cleared": 2,
+        "clear_rate": 0.001,
+        "weight": 0.39
+      }
+    }
+  },
+  {
+    "timesteps": 38000,
+    "mean_return": -4.9560555834602,
+    "levels": {
+      "5": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.9781399675419475
+      },
+      "6": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.933971199378453
+      }
+    },
+    "train_sampler": {
+      "2": {
+        "episodes": 1297,
+        "cleared": 262,
+        "clear_rate": 0.202,
+        "weight": 0.319
+      },
+      "3": {
+        "episodes": 1408,
+        "cleared": 394,
+        "clear_rate": 0.28,
+        "weight": 0.291
+      },
+      "4": {
+        "episodes": 1600,
+        "cleared": 2,
+        "clear_rate": 0.001,
+        "weight": 0.39
+      }
+    }
+  },
+  {
+    "timesteps": 40000,
+    "mean_return": -4.92530063259568,
+    "levels": {
+      "5": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.9657915917952575
+      },
+      "6": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.884809673396101
+      }
+    },
+    "train_sampler": {
+      "2": {
+        "episodes": 1302,
+        "cleared": 263,
+        "clear_rate": 0.202,
+        "weight": 0.319
+      },
+      "3": {
+        "episodes": 1414,
+        "cleared": 396,
+        "clear_rate": 0.28,
+        "weight": 0.291
+      },
+      "4": {
+        "episodes": 1610,
+        "cleared": 2,
+        "clear_rate": 0.001,
+        "weight": 0.39
+      }
+    }
+  },
+  {
+    "timesteps": 42000,
+    "mean_return": -4.665526998849229,
+    "levels": {
+      "5": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.953053997698459
+      },
+      "6": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.378
+      }
+    },
+    "train_sampler": {
+      "2": {
+        "episodes": 1315,
+        "cleared": 266,
+        "clear_rate": 0.202,
+        "weight": 0.319
+      },
+      "3": {
+        "episodes": 1424,
+        "cleared": 397,
+        "clear_rate": 0.279,
+        "weight": 0.291
+      },
+      "4": {
+        "episodes": 1638,
+        "cleared": 2,
+        "clear_rate": 0.001,
+        "weight": 0.39
+      }
+    }
+  },
+  {
+    "timesteps": 44000,
+    "mean_return": -4.6505,
+    "levels": {
+      "5": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.899
+      },
+      "6": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.402
+      }
+    },
+    "train_sampler": {
+      "2": {
+        "episodes": 1344,
+        "cleared": 276,
+        "clear_rate": 0.205,
+        "weight": 0.318
+      },
+      "3": {
+        "episodes": 1457,
+        "cleared": 403,
+        "clear_rate": 0.277,
+        "weight": 0.292
+      },
+      "4": {
+        "episodes": 1666,
+        "cleared": 2,
+        "clear_rate": 0.001,
+        "weight": 0.39
+      }
+    }
+  },
+  {
+    "timesteps": 46000,
+    "mean_return": -3.2250000000000005,
+    "levels": {
+      "5": {
+        "episodes": 2,
+        "cleared": 1,
+        "clear_rate": 0.5,
+        "mean_return": -1.4960000000000002
+      },
+      "6": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.954000000000001
+      }
+    },
+    "train_sampler": {
+      "2": {
+        "episodes": 1369,
+        "cleared": 282,
+        "clear_rate": 0.206,
+        "weight": 0.317
+      },
+      "3": {
+        "episodes": 1489,
+        "cleared": 404,
+        "clear_rate": 0.271,
+        "weight": 0.294
+      },
+      "4": {
+        "episodes": 1701,
+        "cleared": 2,
+        "clear_rate": 0.001,
+        "weight": 0.389
+      }
+    }
+  },
+  {
+    "timesteps": 48000,
+    "mean_return": -4.918500000000001,
+    "levels": {
+      "5": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.9350000000000005
+      },
+      "6": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.902
+      }
+    },
+    "train_sampler": {
+      "2": {
+        "episodes": 1415,
+        "cleared": 298,
+        "clear_rate": 0.211,
+        "weight": 0.315
+      },
+      "3": {
+        "episodes": 1548,
+        "cleared": 405,
+        "clear_rate": 0.262,
+        "weight": 0.297
+      },
+      "4": {
+        "episodes": 1765,
+        "cleared": 2,
+        "clear_rate": 0.001,
+        "weight": 0.389
+      }
+    }
+  },
+  {
+    "timesteps": 50000,
+    "mean_return": -4.9475,
+    "levels": {
+      "5": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.945
+      },
+      "6": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.95
+      }
+    },
+    "train_sampler": {
+      "2": {
+        "episodes": 1451,
+        "cleared": 320,
+        "clear_rate": 0.221,
+        "weight": 0.312
+      },
+      "3": {
+        "episodes": 1576,
+        "cleared": 405,
+        "clear_rate": 0.257,
+        "weight": 0.299
+      },
+      "4": {
+        "episodes": 1810,
+        "cleared": 2,
+        "clear_rate": 0.001,
+        "weight": 0.389
       }
     }
   }

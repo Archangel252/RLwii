@@ -24,7 +24,32 @@ For the reward function we are doing is below:
 │ death                         │ −5.000 │
 └───────────────────────────────┴────────┘
 
-We are also cycling in harder levels in more often to train it more on the ones it is bad at. 
+We are also cycling in harder levels in more often to train it more on the ones it is bad at.
+
+## Second try
+
+The first reward function accidentally taught the model to hide. Hiding for a full episode scored +4.0, which is almost as good as winning (+6.0) and much better than trying and dying (-5.0), so on any level it couldn't reliably beat, not engaging was the correct play. Rebalanced so that engaging pays:
+
+┌────────────────┬───────────┬───────────┐
+│                │    old    │    new    │
+├────────────────┼───────────┼───────────┤
+│ survival bonus │ +0.002/st │  removed  │
+├────────────────┼───────────┼───────────┤
+│ time cost      │     —     │ −0.002/st │
+├────────────────┼───────────┼───────────┤
+│ kill           │     +1    │     +2    │
+├────────────────┼───────────┼───────────┤
+│ clear          │     +5    │    +10    │
+├────────────────┼───────────┼───────────┤
+│ death          │     −5    │     −2    │
+├────────────────┼───────────┼───────────┤
+│ danger penalty │ −0.05×thr │ −0.02×thr │
+└────────────────┴───────────┴───────────┘
+
+Death got *less* punishing on purpose -- dying already ends the episode and forfeits all future reward, so an extra -5 on top just made it refuse to take any risk. Now clearing level 2 is worth +12 against -2 for dying, and hiding for a full episode scores -4.0 instead of +4.0.
+
 ## Model specifics
 
 ## Results
+
+First run was 50k steps (~6.5 hours) training on levels 2, 3 and 4, holding out 5 and 6. It learned exactly one level: level 2 clears 6/8 deterministically (+3.39 mean return), while every other level -- trained or held out -- clears 0/8. Deterministic beat stochastic everywhere, so the gap is a real generalization failure rather than an eval artifact. The failure mode is visible in the episode lengths: on levels it can't beat it survives 30-73 steps and then dies without killing anything, which looks like the +0.002/step survival bonus teaching it to hide instead of fight.

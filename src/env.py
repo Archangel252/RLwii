@@ -39,7 +39,8 @@ RESET_ATTEMPTS = 3
 class TanksEnv(gym.Env):
     """Gymnasium Env wrapping the Tanks minigame running in Dolphin."""
 
-    def __init__(self, dme, controller, encoder=None, reward_fn=None, levels=None):
+    def __init__(self, dme, controller, encoder=None, reward_fn=None, levels=None,
+                 on_stuck=None):
         """`levels` picks the level each episode. SB3 calls reset() without
         options, so training-time level control has to live here:
             levels=3            fixed
@@ -52,6 +53,9 @@ class TanksEnv(gym.Env):
         self.encoder = encoder
         self.reward_fn = reward_fn
         self.levels = levels if levels is not None else DEFAULT_LEVEL
+        # Called when reset can't reach a playable state; last-resort recovery
+        # (e.g. relaunch Dolphin) so a long unattended run doesn't just die.
+        self.on_stuck = on_stuck
         self.episodes = 0
         self.episode_level = None
         self.last_episode = None
@@ -79,17 +83,16 @@ class TanksEnv(gym.Env):
         # The tank can be shot between the liveness check and here, so verify
         # and retry -- otherwise the episode starts dead and terminates on
         # step 1, feeding a degenerate transition to the learner.
-        for attempt in range(RESET_ATTEMPTS):
-            self._load_level(level)
+        if not self._try_reset(level) and self.on_stuck is not None:
+            print("[env] stuck; running recovery", flush=True)
+            self.on_stuck(self)
             self.refresh_blocks()
-            if self.tank_alive() == 1 and self.enemies_remaining() > 0:
-                break
-        else:
-            raise RuntimeError(
-                f"could not reach level {level} after {RESET_ATTEMPTS} attempts: "
-                f"level={self.level()} alive={self.tank_alive()} "
-                f"enemies={self.enemies_remaining()}"
-            )
+            if not self._try_reset(level):
+                raise RuntimeError(
+                    f"could not reach level {level} even after recovery: "
+                    f"level={self.level()} alive={self.tank_alive()} "
+                    f"enemies={self.enemies_remaining()}"
+                )
 
         self.steps = 0
         self.episode_level = self.level()
@@ -129,6 +132,14 @@ class TanksEnv(gym.Env):
         }
         return obs, reward, terminated, truncated, info
 
+    def _try_reset(self, level):
+        for _ in range(RESET_ATTEMPTS):
+            self._load_level(level)
+            self.refresh_blocks()
+            if self.tank_alive() == 1 and self.enemies_remaining() > 0:
+                return True
+        return False
+
     def _pick_level(self):
         if callable(self.levels):
             return int(self.levels(self))
@@ -148,9 +159,18 @@ class TanksEnv(gym.Env):
         instant false "cleared"). So verify, and fall back to a save state,
         which recovers from anything but steals window focus.
         """
-        # An episode almost always ends with a dead tank, and the jump can't
-        # fire from there -- trying anyway would burn the full timeout every
-        # reset. Go straight to the save state when the game isn't playable.
+        # A state for the target level skips the jump entirely: load it and
+        # we're already there, alive, with enemies. That's the fast path and
+        # it avoids the jump's flaky transition altogether.
+        state = dolphin.level_state(target)
+        if state:
+            dolphin.load_state(self.controller, state)
+            if self._wait_playable() and self.level() == target:
+                self.dme.write_word(
+                    memory_map.ADDRESSES["lives_remaining"], RESET_LIVES)
+                return True
+
+        # No state for this level (or it didn't take): fall back to jumping.
         if self.tank_alive() == 1 and self._jump_to(target):
             return True
 
