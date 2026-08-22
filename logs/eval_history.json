@@ -1,0 +1,154 @@
+[
+  {
+    "timesteps": 30,
+    "mean_return": -5.0,
+    "levels": {
+      "5": {
+        "episodes": 1,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -5.0
+      },
+      "6": {
+        "episodes": 1,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -5.0
+      }
+    },
+    "train_sampler": {
+      "2": {
+        "episodes": 7,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "weight": 0.333
+      },
+      "3": {
+        "episodes": 0,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "weight": 0.333
+      },
+      "4": {
+        "episodes": 2,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "weight": 0.333
+      }
+    }
+  },
+  {
+    "timesteps": 60,
+    "mean_return": -5.0,
+    "levels": {
+      "5": {
+        "episodes": 1,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -5.0
+      },
+      "6": {
+        "episodes": 1,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -5.0
+      }
+    },
+    "train_sampler": {
+      "2": {
+        "episodes": 10,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "weight": 0.333
+      },
+      "3": {
+        "episodes": 3,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "weight": 0.333
+      },
+      "4": {
+        "episodes": 5,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "weight": 0.333
+      }
+    }
+  },
+  {
+    "timesteps": 90,
+    "mean_return": -5.0,
+    "levels": {
+      "5": {
+        "episodes": 1,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -5.0
+      },
+      "6": {
+        "episodes": 1,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -5.0
+      }
+    },
+    "train_sampler": {
+      "2": {
+        "episodes": 14,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "weight": 0.333
+      },
+      "3": {
+        "episodes": 4,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "weight": 0.333
+      },
+      "4": {
+        "episodes": 10,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "weight": 0.333
+      }
+    }
+  },
+  {
+    "timesteps": 120,
+    "mean_return": -4.5,
+    "levels": {
+      "5": {
+        "episodes": 1,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -4.0
+      },
+      "6": {
+        "episodes": 1,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "mean_return": -5.0
+      }
+    },
+    "train_sampler": {
+      "2": {
+        "episodes": 16,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "weight": 0.333
+      },
+      "3": {
+        "episodes": 7,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "weight": 0.333
+      },
+      "4": {
+        "episodes": 15,
+        "cleared": 0,
+        "clear_rate": 0.0,
+        "weight": 0.333
+      }
+    }
+  }
+]

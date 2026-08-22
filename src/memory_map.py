@@ -14,6 +14,10 @@ X spans -367.5..367.5, Y spans -175.0..175.0.
 
 ADDRESSES: dict[str, int] = {
     "score": 0x91D28100,                # word
+    # READ-ONLY in practice: a write lands but is recomputed back within
+    # ~12 frames, so the tank cannot be teleported through these. MEM1 and
+    # MEM2 y also hold genuinely different values (44.9 vs -70.0 observed
+    # simultaneously), so they are not two copies of one coordinate.
     "tank_y_pos": 0x815EAE98,           # float, MEM1 copy
     "tank_x_pos": 0x921EC84C,           # float, MEM2
     "tank_y_pos_mem2": 0x921EC86C,      # float, MEM2 -- prefer over

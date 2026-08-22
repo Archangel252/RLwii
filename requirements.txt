@@ -2,4 +2,5 @@ dolphin-memory-engine
 gymnasium
 numpy
 pygame
-# stable-baselines3  # add later once the env works
+stable-baselines3
+tensorboard

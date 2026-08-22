@@ -2,7 +2,7 @@ import math
 
 import pygame
 
-import memory_map
+from src import memory_map
 
 WORLD_SCALE = 1
 
