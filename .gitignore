@@ -6,3 +6,7 @@ __pycache__/
 .pytest_cache/
 Games/
 models/
+
+# training artifacts (large, regenerated each run)
+archive/
+logs/

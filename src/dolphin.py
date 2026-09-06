@@ -95,30 +95,47 @@ def focus():
                    capture_output=True)
 
 
-def load_state(controller, state_path=CLEAN_STATE):
-    """Restore a known-good state. Works from any state, including game-over,
-    which the memory-write level jump cannot do.
+def load_state(controller, state_path=CLEAN_STATE, attempts=3):
+    """Restore a known-good state. Works from any state, including game-over.
 
-    Dolphin re-reads the slot file from disk on every load, so any state file
-    can be used by copying it over the slot first.
+    Needs HotkeysRequireFocus=False in Dolphin.ini (see README); without it
+    the hotkey is dropped whenever Dolphin isn't frontmost. Retries anyway,
+    since a silently dropped load used to leave callers running against a
+    dead game.
     """
+    for attempt in range(attempts):
+        if _try_load_state(controller, state_path):
+            return True
+        print(f"[dolphin] state load attempt {attempt + 1} failed", flush=True)
+    raise RuntimeError(f"could not load save state after {attempts} attempts")
+
+
+def _try_load_state(controller, state_path):
     import dolphin_memory_engine as _dme
     from src import memory_map as _m
 
     shutil.copyfile(state_path, SLOT_FILE)
-    focus()
-    time.sleep(0.15)
 
-    # A state load rewinds the global frame counter, which is a far more
-    # reliable "it landed" signal than sleeping a fixed guess.
-    before = _dme.read_word(_m.ADDRESSES["frame_counter"])
+    # Detect the load by watching the tank snap back to the state's position.
+    # The frame counter is not usable for this: a state carries its own
+    # counter value, which can be higher than the current one (notably right
+    # after a launch), so "counter went backwards" silently misses real loads.
+    def snapshot():
+        return (round(_dme.read_float(_m.ADDRESSES["tank_x_pos"]), 1),
+                round(_dme.read_float(_m.ADDRESSES["tank_y_pos_mem2"]), 1),
+                _dme.read_word(_m.ADDRESSES["lives_remaining"]),
+                _dme.read_byte(_m.ADDRESSES["level_index"]))
+
+    before = snapshot()
     controller.press(SLOT_BUTTON)
     time.sleep(0.12)
     controller.release(SLOT_BUTTON)
 
     deadline = time.time() + 8.0
     while time.time() < deadline:
-        if _dme.read_word(_m.ADDRESSES["frame_counter"]) < before:
+        if snapshot() != before:
             return True
         time.sleep(0.02)
-    return False
+    # State may match the live game exactly (e.g. loading twice in a row),
+    # in which case nothing changes and there is nothing to detect.
+    return snapshot() == before

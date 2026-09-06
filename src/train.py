@@ -27,7 +27,10 @@ MODEL_DIR = os.path.join(dolphin.PROJECT_ROOT, "models")
 LOG_DIR = os.path.join(dolphin.PROJECT_ROOT, "logs")
 LATEST_PATH = os.path.join(MODEL_DIR, "latest")
 
-TRAIN_LEVELS = [2, 3, 4]
+# Level 2 excluded: its single enemy frequently kills itself on its own
+# ricochet within a couple of steps, so it hands out clears the agent didn't
+# earn and pollutes the reward signal.
+TRAIN_LEVELS = [3, 4]
 EVAL_LEVELS = [5, 6]        # held out, to show generalisation rather than memorisation
 
 

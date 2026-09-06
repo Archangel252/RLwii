@@ -34,6 +34,8 @@ LOAD_TIMEOUT_SECONDS = 20.0
 LOAD_SETTLE_FRAMES = 60
 ALIVE_CONFIRM_CHECKS = 3
 RESET_ATTEMPTS = 3
+SETTLE_CONFIRM_CHECKS = 2
+CLEAR_CONFIRM_FRAMES = 20
 
 
 class TanksEnv(gym.Env):
@@ -136,9 +138,25 @@ class TanksEnv(gym.Env):
         for _ in range(RESET_ATTEMPTS):
             self._load_level(level)
             self.refresh_blocks()
-            if self.tank_alive() == 1 and self.enemies_remaining() > 0:
+            if self._settled():
                 return True
         return False
+
+    def _settled(self):
+        """Alive, enemies actually spawned, and both stable for a moment.
+
+        Without this reset can return mid-transition, which produced 1-step
+        episodes -- instant deaths, and fake clears when the enemy count had
+        not repopulated yet.
+        """
+        if self.tank_alive() != 1 or self.live_enemies() == 0:
+            return False
+        enemies = self.live_enemies()
+        for _ in range(SETTLE_CONFIRM_CHECKS):
+            self.wait_frames(LOAD_SETTLE_FRAMES)
+            if self.tank_alive() != 1 or self.live_enemies() != enemies:
+                return False
+        return True
 
     def _pick_level(self):
         if callable(self.levels):
@@ -215,7 +233,7 @@ class TanksEnv(gym.Env):
 
         return (self.level() == target
                 and self.tank_alive() == 1
-                and self.enemies_remaining() > 0)
+                and self.live_enemies() > 0)
 
     def get_obs(self) -> np.ndarray:
         return self.encoder.encode(self)
@@ -248,10 +266,27 @@ class TanksEnv(gym.Env):
     def died(self):
         return self.tank_alive() == 0
 
+    def live_enemies(self):
+        """Enemy count from the arena, not the counter byte.
+
+        ADDRESSES["enemies_remaining"] reads 0 spuriously around transitions
+        -- it's also the byte reset() writes to force one -- which produced
+        fake 1-step "clears" worth +16. The arena is ground truth.
+        """
+        return len(self.enemy_tanks())
+
     def level_cleared(self):
-        """Win condition. Note reset() zeroes this counter to force a level
-        transition, so it only means 'cleared' during normal play."""
-        return self.enemies_remaining() == 0
+        """Win condition: both sources agree the arena is empty, twice.
+
+        Enemy active flags flicker during spawn the same way the tank's do,
+        and a single flickered read used to register as an instant clear --
+        worth +12 for nothing. Re-checking costs nothing in the common case
+        because it only runs when a clear already looks true.
+        """
+        if self.live_enemies() != 0 or self.enemies_remaining() != 0:
+            return False
+        self.wait_frames(CLEAR_CONFIRM_FRAMES)
+        return self.live_enemies() == 0 and self.enemies_remaining() == 0
 
     def frame_count(self):
         return self.dme.read_word(memory_map.ADDRESSES["frame_counter"])

@@ -32,11 +32,11 @@ class CombatReward(RewardFunction):
         self.prev_enemies = 0
 
     def reset(self, env) -> None:
-        self.prev_enemies = env.enemies_remaining()
+        self.prev_enemies = env.live_enemies()
 
     def __call__(self, env) -> float:
-        # Enemy counter, not score -- score can move by >1 per kill.
-        enemies = env.enemies_remaining()
+        # Arena count: the counter byte glitches to 0 and paid phantom kills.
+        enemies = env.live_enemies()
         reward = self.kill * max(0, self.prev_enemies - enemies)
         self.prev_enemies = enemies
 

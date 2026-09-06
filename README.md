@@ -2,6 +2,18 @@
 
 This is my first ML project on a game I was obsessed with as a kid. Wii Play was one of my favorite video games specifically the Tank Game. I wanted to get an intro into ML and I figured this would be a good start. Most used Claude Code to assist in mapping the memory (bc that part stinks manually) but the game is being run on Dolphin emulator and we are able to use the python package and hook into the live game and read from the memory addresses to get all the state we need. We are feeding the state into the ML model and the taking the actions and Piping them through back to Dolphin to process the inputs. There is also a very poor pygame rendered version of the state for viewing while training beacuse we are able to increase frames 11x if we run dolphin headless. 
 
+## Dolphin setup gotchas
+
+Two settings in `Dolphin.ini` that are not obvious and cost a lot of time:
+
+- `[Input] BackgroundInput = True` -- lets the emulated controller receive
+  piped input while Dolphin is not the frontmost window.
+- `[General] HotkeysRequireFocus = False` -- does the same for *hotkeys*,
+  which are separate. Save-state loading is a hotkey, so without this every
+  episode reset had to steal window focus and the machine was unusable while
+  training. Also the reason `dolphin-emu-nogui` can't be used: its main loop
+  has no hotkey polling at all, so states can never be loaded there.
+
 ## First try
 
 After watching some youtube the strategy is to train a Proximal Policy Optimization model with a CNN policy archetecture to take in the state at each state
