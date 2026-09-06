@@ -19,7 +19,7 @@ from src.controller import PipeController
 from src.encoders.grid import GridEncoder
 from src.env import TanksEnv
 from src.levels import AdaptiveSampler
-from src.policy import POLICY_KWARGS
+from src.policies.grid_cnn import POLICY_KWARGS
 from src.reward_funcs.combat import CombatReward
 
 START_STATE = os.path.join(dolphin.PROJECT_ROOT, "Games", "Levels", "level1.sav")

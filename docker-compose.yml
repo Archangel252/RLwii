@@ -1,0 +1,14 @@
+services:
+  train:
+    build: .
+    # dolphin-memory-engine attaches to the Dolphin process via ptrace.
+    cap_add: [SYS_PTRACE]
+    security_opt: ["seccomp:unconfined"]
+    volumes:
+      # ROM and save states are not in the image (copyright, and ~3GB).
+      - ./Games:/app/Games:ro
+      - ./models:/app/models
+      - ./logs:/app/logs
+    environment:
+      DOLPHIN_PIPE_NAME: test
+    command: ["/venv/bin/python", "-m", "src.train", "--steps", "50000"]

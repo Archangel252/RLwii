@@ -1,0 +1,8 @@
+venv/
+Games/
+models/
+logs/
+archive/
+__pycache__/
+*.pyc
+.git/

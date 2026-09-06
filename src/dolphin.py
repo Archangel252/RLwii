@@ -7,26 +7,33 @@ import time
 
 import dolphin_memory_engine as dme
 
-APP = "/Applications/Dolphin.app"
-BINARY = f"{APP}/Contents/MacOS/Dolphin"
+from src import platform_paths as plat
+
+BINARY = plat.BINARY
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 GAME = os.path.join(PROJECT_ROOT, "Games", "wii_play.wbfs")
-PIPE_PATH = os.path.expanduser("~/Library/Application Support/Dolphin/Pipes/test")
+PIPE_NAME = os.environ.get("DOLPHIN_PIPE_NAME", "test")
+PIPE_PATH = os.path.join(plat.PIPES_DIR, PIPE_NAME)
 
 
 def is_running():
-    return subprocess.run(["pgrep", "-f", BINARY],
+    return subprocess.run(["pgrep", "-f", plat.process_matches()],
                           capture_output=True).returncode == 0
 
 
 def quit_dolphin(timeout=30):
-    subprocess.run(["osascript", "-e", 'quit app "Dolphin"'],
-                   capture_output=True)
+    quit_cmd = plat.quit_command()
+    if quit_cmd:
+        subprocess.run(quit_cmd, capture_output=True)
+    else:
+        subprocess.run(["pkill", "-f", plat.process_matches()],
+                       capture_output=True)
     deadline = time.time() + timeout
     while is_running() and time.time() < deadline:
         time.sleep(1)
     if is_running():
-        subprocess.run(["pkill", "-9", "-f", BINARY], capture_output=True)
+        subprocess.run(["pkill", "-9", "-f", plat.process_matches()],
+                       capture_output=True)
         time.sleep(2)
 
 
@@ -45,7 +52,13 @@ def launch(state=None, headless=False, uncapped=False, game=GAME, timeout=90):
         args += ["-C", "Dolphin.Core.EmulationSpeed=0"]
     if headless:
         args += ["-v", "Null"]
-    subprocess.run(["open", "-a", APP, "--args"] + args, check=True)
+    cmd = plat.launch_command(args)
+    if plat.IS_MAC:
+        subprocess.run(cmd, check=True)
+    else:
+        # No `open` wrapper on Linux: spawn detached so it outlives this call.
+        subprocess.Popen(cmd, stdout=subprocess.DEVNULL,
+                         stderr=subprocess.DEVNULL, start_new_session=True)
 
     wait_until_ready(timeout)
 
@@ -77,8 +90,7 @@ def wait_until_ready(timeout=90):
 # Save-state recovery. Load-state is a hotkey and hotkeys are ignored unless
 # Dolphin is frontmost, so this steals focus -- it's the fallback path, used
 # only when a memory-write level jump leaves the game wedged.
-SLOT_FILE = os.path.expanduser(
-    "~/Library/Application Support/Dolphin/StateSaves/RHAE01.s01")
+SLOT_FILE = os.path.join(plat.STATES_DIR, "RHAE01.s01")
 SLOT_BUTTON = "X"                                    # bound to Load State Slot 1
 CLEAN_STATE = os.path.join(PROJECT_ROOT, "Games", "Levels", "level1.sav")
 LEVELS_DIR = os.path.join(PROJECT_ROOT, "Games", "Levels")
@@ -91,8 +103,8 @@ def level_state(level):
 
 
 def focus():
-    subprocess.run(["osascript", "-e", 'tell application "Dolphin" to activate'],
-                   capture_output=True)
+    """No-op where hotkeys don't need focus (see HotkeysRequireFocus)."""
+    plat.focus()
 
 
 def load_state(controller, state_path=CLEAN_STATE, attempts=3):
